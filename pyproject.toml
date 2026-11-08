@@ -1,0 +1,9 @@
+[project]
+name = "triton-kernel-study"
+version = "1.0.0"
+description = "A hand-written Triton fused softmax kernel measured against PyTorch eager and torch.compile on one named GPU, under pre-registered hypotheses."
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
