@@ -16,10 +16,38 @@ commit.
 
 ## Results
 
-Measured results are published in RESULTS.md with the raw record
-in results/raw_runs.json. The headline table and verdicts are
-added to this README in the results commit, once the run exists.
-No result is stated here before then.
+Measured on BlackBox, NVIDIA GeForce RTX 5050 Laptop GPU (8 GB),
+torch 2.11.0+cu128, triton 3.9.0. Full tables in RESULTS.md; raw
+record in results/raw_runs.json.
+
+Verdicts under the frozen rules:
+
+- H1 REFUTED. Hand-written does not beat eager by 1.30x. At the
+  verdict size (16384 columns) the triton kernel reaches
+  337.4 GB/s against eager's 338.6 GB/s, a ratio of 0.996. Both
+  sit at the device's memory wall, and at the wall there is no
+  1.30x to be had.
+- H2 CONFIRMED. Triton lands inside the parity band against
+  torch.compile: ratio 1.044 (band 0.85 to 1.18). The compiler
+  arm is the slowest of the three at the large sizes.
+- H3 CONFIRMED. The triton kernel matches the eager reference
+  to at most 7.5e-09 at every size, far inside the frozen 1e-5
+  tolerance.
+
+Effective bandwidth (GB/s) by size:
+
+| Cols | Eager | Compiled | Triton |
+| --- | --- | --- | --- |
+| 1024 | 700.9 | 522.7 | 709.0 |
+| 2048 | 309.6 | 271.2 | 322.4 |
+| 4096 | 274.5 | 291.6 | 326.8 |
+| 8192 | 312.1 | 301.7 | 340.0 |
+| 16384 | 338.6 | 323.0 | 337.4 |
+
+The 1024-column row is partly cache-resident (33.5 MB moved) and
+its figures are cache-assisted, not DRAM bandwidth; the frozen
+protocol judges only the 16384-column size. Grade in AUDIT.md:
+6,700 of 10,000, deductions itemized.
 
 ## Why this study exists
 

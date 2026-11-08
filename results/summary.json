@@ -1,0 +1,17 @@
+{
+  "verdict_cols": 16384,
+  "ratio_triton_over_eager_at_verdict": 0.9963201802042728,
+  "ratio_triton_over_compiled_at_verdict": 1.0444198738585073,
+  "h3_within_tolerance_by_size": {
+    "1024": true,
+    "2048": true,
+    "4096": true,
+    "8192": true,
+    "16384": true
+  },
+  "verdicts": {
+    "H1": "REFUTED",
+    "H2": "CONFIRMED",
+    "H3": "CONFIRMED"
+  }
+}
