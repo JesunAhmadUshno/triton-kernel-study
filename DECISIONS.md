@@ -54,3 +54,25 @@ before the warmup calls. That call is therefore also a warmup in
 effect (for the compiled arm it is where compilation happens;
 its wall time is recorded as context). The frozen count of 5
 warmup and 25 timed calls is unchanged and runs after it.
+
+## D7. Gap-closure locked-clock repeat (2026-11-17)
+
+The audit records that the scored pass ran once, with SM clocks
+unlocked (the record's clocks floated between 1,755 and 2,595
+MHz), so no repeat prices the variance. This entry registers
+the repeat before it runs. On BlackBox (the machine of
+record), study/benchmark.py is executed on 2026-11-17 in a
+run-copy of the GitHub clone at
+C:\Users\Jesun\gap-closure-2026-11-17\triton-kernel-study,
+with SM clocks locked at 2,000 MHz (nvidia-smi -lgc 2000,2000;
+the driver accepted the lock in this session) and the laptop
+on AC power. Environment of record: Python 3.14.7, torch
+2.11.0+cu128, triton 3.9.0, driver 577.05. The frozen protocol
+is unchanged: rows 4096, float32, 5 warmup calls then 25 timed
+calls per arm per size, the full size ladder. The fresh raw
+output is filed in this repo as the NEW file
+results/raw_runs_gapclosure_2026-11-17.json;
+results/raw_runs.json and RESULTS.md are not edited and no
+verdict is re-issued. The comparison of record is the ratio at
+16,384 columns: committed triton over eager bandwidth 0.996
+(triton over compiled 1.044).
